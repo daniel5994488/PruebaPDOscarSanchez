@@ -19,6 +19,15 @@ while ($fila = $resultado->fetch_array())
     array_push($DestinatariosArreglo, $Destinatarios);
 }
 $data['Destinatarios'] = $DestinatariosArreglo;
+?>
+<table>
+    <thead>
+    <th>Codigo</th>
+    <th>Detalle del Envio</th>
+    <th>Correo</th>
+    </thead>
+    <tbody>
+                <?php
 foreach ($data['Destinatarios'] as $key => $value)
 {
     foreach ($_FILES["archivo"]['tmp_name'] as $key => $tmp_name)
@@ -32,11 +41,22 @@ foreach ($data['Destinatarios'] as $key => $value)
             $Apellido1=$value->getPrimerApellido();
             $Apellido2=$value->getSegundoApellido();
             $correo=$value->getCorreo();
+            $id=$value->getid();
             if (strpos($ext[0], $value->getNombre()) !== false && strpos($ext[0], $value->getPrimerApellido()) !== false || strpos($ext[0], $value->getSegundoApellido()) !== false)
             {
-            echo "El archivo $filename se envia a $nombre $Apellido1 $Apellido2 correo $correo <br>";
-             $mail = new PHPMailer(true);
+                ?>
+                <tr>
+                <td> <?php echo $id?> </td>
+                <td> <?php echo "El archivo $filename se envia a $nombre $Apellido1 $Apellido2 al correo: ";
+                ?> </td>
+                <td> <?php echo " $correo<br>"?> </td>
+                </tr>
+              </tbody>
+              </table>
+    
 
+                <?php
+              $mail = new PHPMailer(true);
                 try
                 {
                     //Server settings
@@ -61,7 +81,7 @@ foreach ($data['Destinatarios'] as $key => $value)
                     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                 }
             } //if comprobar que existe el usuario con datos de la Base de datos
-            
+           
         } //if existe archivo
         
     } //recorrer arreglo de archivos
@@ -70,3 +90,7 @@ foreach ($data['Destinatarios'] as $key => $value)
 
 
 ?>
+
+
+
+    
