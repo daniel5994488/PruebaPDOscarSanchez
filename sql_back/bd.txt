@@ -1,0 +1,14 @@
+create database PDPersona
+use PDPersona
+
+create table Destinatarios(
+id int PRIMARY KEY AUTO_INCREMENT,
+Nombre VARCHAR(100),
+PrimerApellido VARCHAR(100),
+SegundoApellido VARCHAR(100),
+Cedula VARCHAR(100),
+Correo VARCHAR(100)
+)
+insert into Destinatarios(Nombre,PrimerApellido,SegundoApellido,Cedula,Correo) values('Ella','Sanchez','Rivera','306780987','daniel5994488@gmail.com')
+select * from Destinatarios
+ 
